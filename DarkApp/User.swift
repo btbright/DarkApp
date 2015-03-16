@@ -10,9 +10,14 @@ import Foundation
 
 class User
 {
+    var isUser: Bool = false
     var firstName: String = ""
     var lastName: String = ""
     var userId: String = ""
+    
+    init(){
+        
+    }
     
     init(firstName firstNameInit: String, lastName lastNameInit: String, userId userIdInit: String?){
         if let userIdParsed = userIdInit {
@@ -30,5 +35,4 @@ class ChatUser : User
     var isSelected: Bool = false
     var hasJoined: Bool = false
     var fakeChatText: String = ""
-    var isUser: Bool = false
 }

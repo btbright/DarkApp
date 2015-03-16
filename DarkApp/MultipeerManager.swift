@@ -9,14 +9,12 @@
 import Foundation
 import MultipeerConnectivity
 
-protocol MultipeerManagerDelegate {
-    func foundPeer()
-    
-    func lostPeer()
-    
-    func invitationWasReceived(fromPeer: String)
-    
-    func connectedWithPeer(peerID: MCPeerID)
+@objc protocol MultipeerManagerDelegate {
+    optional func foundPeer(peerID: MCPeerID)
+    optional func lostPeer(peerID: MCPeerID)
+    optional func invitationWasReceived(fromPeer: String)
+    optional func connectedWithPeer(peerID: MCPeerID)
+    optional func receivedData(peerID: MCPeerID, receivedData: Dictionary<String, Dictionary<String, String>>?)
 }
 
 
@@ -52,7 +50,7 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
     func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
         foundPeers.append(peerID)
         
-        delegate?.foundPeer()
+        delegate?.foundPeer!(peerID)
     }
     
     func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
@@ -63,7 +61,7 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
             }
         }
         
-        delegate?.lostPeer()
+        delegate?.lostPeer!(peerID)
     }
     
     func browser(browser: MCNearbyServiceBrowser!, didNotStartBrowsingForPeers error: NSError!) {
@@ -76,7 +74,7 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
     func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
         self.invitationHandler = invitationHandler
         
-        delegate?.invitationWasReceived(peerID.displayName)
+        delegate?.invitationWasReceived!(peerID.displayName)
     }
     
     
@@ -91,7 +89,7 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
         switch state{
         case MCSessionState.Connected:
             println("Connected to session: \(session)")
-            delegate?.connectedWithPeer(peerID)
+            delegate?.connectedWithPeer!(peerID)
             
         case MCSessionState.Connecting:
             println("Connecting to session: \(session)")
@@ -104,9 +102,14 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
     
     func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
         let dictionary: [String: AnyObject] = ["data": data, "fromPeer": peerID]
-        NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
+        //NSNotificationCenter.defaultCenter().postNotificationName("receivedMPCDataNotification", object: dictionary)
+        if let unarchivedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? Dictionary<String,Dictionary<String,String>>
+        {
+            delegate?.receivedData!(peerID, receivedData: unarchivedData)
+        } else {
+            delegate?.receivedData!(peerID, receivedData: nil)
+        }
     }
-    
     
     func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) { }
     
@@ -118,9 +121,15 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
     
     // MARK: Custom method implementation
     
-    func sendData(dictionaryWithData dictionary: Dictionary<String, String>, toPeer targetPeer: MCPeerID) -> Bool {
+    func sendData(dictionaryWithData dictionary: Dictionary<String, Dictionary<String,String>>, toPeer targetPeer: MCPeerID?) -> Bool {
         let dataToSend = NSKeyedArchiver.archivedDataWithRootObject(dictionary)
-        let peersArray = NSArray(object: targetPeer)
+        
+        var peersArray = []
+        if (targetPeer != nil){
+            peersArray = NSArray(object: targetPeer!)
+        } else {
+            peersArray = foundPeers
+        }
         var error: NSError?
         
         if !session.sendData(dataToSend, toPeers: peersArray, withMode: MCSessionSendDataMode.Reliable, error: &error) {

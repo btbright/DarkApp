@@ -24,6 +24,8 @@
 		9E07DD201AB0E3080095B554 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07DD1F1AB0E3080095B554 /* UserSettings.swift */; };
 		9E07DD241AB244690095B554 /* TimerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07DD231AB244690095B554 /* TimerIndicatorView.swift */; };
 		9E07DD261AB4D1700095B554 /* MultipeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07DD251AB4D1700095B554 /* MultipeerManager.swift */; };
+		9E98B4D61AB76BC3001CA404 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9E98B4D51AB76BC3001CA404 /* todo.txt */; };
+		9E98B4D81AB76E6F001CA404 /* BluetoothConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98B4D71AB76E6F001CA404 /* BluetoothConnectivityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		9E07DD1F1AB0E3080095B554 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		9E07DD231AB244690095B554 /* TimerIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerIndicatorView.swift; sourceTree = "<group>"; };
 		9E07DD251AB4D1700095B554 /* MultipeerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerManager.swift; sourceTree = "<group>"; };
+		9E98B4D51AB76BC3001CA404 /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
+		9E98B4D71AB76E6F001CA404 /* BluetoothConnectivityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothConnectivityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,8 @@
 				9E07DD1F1AB0E3080095B554 /* UserSettings.swift */,
 				9E07DD231AB244690095B554 /* TimerIndicatorView.swift */,
 				9E07DD251AB4D1700095B554 /* MultipeerManager.swift */,
+				9E98B4D51AB76BC3001CA404 /* todo.txt */,
+				9E98B4D71AB76E6F001CA404 /* BluetoothConnectivityManager.swift */,
 			);
 			path = DarkApp;
 			sourceTree = "<group>";
@@ -227,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E98B4D61AB76BC3001CA404 /* todo.txt in Resources */,
 				9E07DCF51AAE20AA0095B554 /* Main.storyboard in Resources */,
 				9E07DCFA1AAE20AA0095B554 /* LaunchScreen.xib in Resources */,
 				9E07DCF71AAE20AA0095B554 /* Images.xcassets in Resources */,
@@ -250,6 +257,7 @@
 				9E07DD1A1AB0C7C40095B554 /* ChatSession.swift in Sources */,
 				9E07DD261AB4D1700095B554 /* MultipeerManager.swift in Sources */,
 				9E07DD121AAE5D0F0095B554 /* User.swift in Sources */,
+				9E98B4D81AB76E6F001CA404 /* BluetoothConnectivityManager.swift in Sources */,
 				9E07DD141AAFA11C0095B554 /* ChatViewCell.swift in Sources */,
 				9E07DCF21AAE20AA0095B554 /* AvailableUsersController.swift in Sources */,
 				9E07DD181AAFA83A0095B554 /* UIColors.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChatSession
+class ChatSession : MultipeerManagerDelegate
 {
     var invitedUsers: [ChatUser] = []
     var joinedUsers: [ChatUser] {
@@ -18,25 +18,9 @@ class ChatSession
             }
         }
     }
-    var chatInfo: [String: String] = [:]
+    var chatInfo: [String: String] = [:] //userid : message
     init()
     {
-        chatInfo["test"] = "this is a test"
+        
     }
 }
-
-/*
-//view/controller
-- handles keyboard input for user
-- adds/removes users as the enter/leave chat
-- updates users' chat label with their inputs
-
-//model
-outputs
-- userlist, chat info
-
-inputs
-- connection events, chat events
-
-
-*/

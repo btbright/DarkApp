@@ -1,0 +1,32 @@
+
+//view/controller
+- handles keyboard input for user
+- adds/removes users as the enter/leave chat
+- updates users' chat label with their inputs
+
+//model
+outputs
+- userlist, chat info
+
+inputs
+- connection events, chat events
+
+MulitpeerManagerEvents
+--------
+User becomes available
+User no longer available
+User gets invited to chat session
+User enters chat session
+User leaves chat session
+User sends chat event (message is updated)
+
+
+IndicatorView
+-------------
+refactor to use coregraphics?
+
+AvailableUserController
+------
+listen for available users / update view model
+  - refactor to abstraction so chat user controller can use it, too
+
