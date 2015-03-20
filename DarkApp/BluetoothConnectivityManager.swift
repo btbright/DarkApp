@@ -12,12 +12,16 @@ import MultipeerConnectivity
 protocol UserConnectivityManagerDelegate
 {
     func receievedData(BluetoothData)
+    func userAdded(User)
+    func userUpdated(User)
+    func userRemoved(User)
 }
 
 //encapulates app connection logic - keep implementation details out
 //i.e. creates users and handles user state/events
 class UserConnectivityManager : MultipeerManagerDelegate
 {
+    var delegate: UserConnectivityManagerDelegate?
     let multipeerManager: MultipeerManager? = nil
     var availableUsers = [BluetoothManagerUser]()
     
@@ -28,6 +32,7 @@ class UserConnectivityManager : MultipeerManagerDelegate
     func lostPeer(peerID: MCPeerID) {
         for (index, user) in enumerate(availableUsers){
             if user.peerID == peerID {
+                delegate?.userRemoved(user)
                 availableUsers.removeAtIndex(index)
                 break
             }
@@ -65,19 +70,27 @@ class UserConnectivityManager : MultipeerManagerDelegate
         }
     }
     
+    //update or add user
     private func recievedUserBasicInfo(userData: UserBasicInfoData)
     {
-        if getAvailableUser(userData.userId) != nil
+        var isNewUser = false
+        var user = getAvailableUser(userData.userId)
+        //if user doesn't exist
+        if user == nil
         {
-            //user already exists
-            return
+            isNewUser = true
+            user = BluetoothManagerUser()
         }
-        let newUser = BluetoothManagerUser()
-        newUser.peerID = userData.peerID
-        newUser.userId = userData.userId
-        newUser.firstName = userData.firstName
-        newUser.lastName = userData.lastName
-        availableUsers.append(newUser)
+        user!.peerID = userData.peerID
+        user!.userId = userData.userId
+        user!.firstName = userData.firstName
+        user!.lastName = userData.lastName
+        if (isNewUser){
+            availableUsers.append(user!)
+            delegate?.userAdded(user!)
+        } else {
+            delegate?.userUpdated(user!)
+        }
     }
     
     private func getAvailableUser(userId: String) -> BluetoothManagerUser?

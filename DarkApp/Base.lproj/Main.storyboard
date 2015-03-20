@@ -220,7 +220,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xwq-Zx-lmp" id="dBQ-Og-52F">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pd-mb-89O" customClass="TimerIndicatorView" customModule="DarkApp" customModuleProvider="target">
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pd-mb-89O" customClass="TimerIndicatorView" customModule="DarkApp" customModuleProvider="target">
                                             <rect key="frame" x="58" y="8" width="2" height="96"/>
                                             <color key="backgroundColor" red="0.50588235294117645" green="0.50588235294117645" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
@@ -229,7 +229,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeM-Dr-0Qd">
-                                            <rect key="frame" x="6" y="46" width="46" height="20"/>
+                                            <rect key="frame" x="5.5" y="46" width="45.5" height="20"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Name">
                                                     <attributes>

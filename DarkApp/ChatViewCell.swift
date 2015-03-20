@@ -86,11 +86,11 @@ class ChatViewCell: UITableViewCell, UITextViewDelegate {
             switch(chatState){
             case .Typing:
                 if oldValue == .EnteredText || oldValue == .NoText {
-                    timerIndicatorView.setupTimerAnimation(true)
+                    timerIndicatorView.setupTimerAnimation(true, {()})
                 }
                 delegate?.handleUserTextChange(self)
             case .EnteredText:
-                timerIndicatorView.startTimerAnimation({ [unowned self] in
+                timerIndicatorView.startTimerAnimation({[unowned self] (didFinish) in
                     //if user started typing again, it's not expired anymore
                     if (self.chatState == .EnteredText){
                         self.delegate!.handleChatTextExpired(self)
@@ -98,7 +98,7 @@ class ChatViewCell: UITableViewCell, UITextViewDelegate {
                 })
                 self.delegate!.handleUserStoppedTyping(self)
             case .NoText:
-                timerIndicatorView.setupTimerAnimation(false)
+                timerIndicatorView.setupTimerAnimation(false, {(didFinish) in})
             default:
                 break
             }
