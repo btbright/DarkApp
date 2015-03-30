@@ -86,7 +86,7 @@ class ChatViewCell: UITableViewCell, UITextViewDelegate {
             switch(chatState){
             case .Typing:
                 if oldValue == .EnteredText || oldValue == .NoText {
-                    timerIndicatorView.setupTimerAnimation(true, {()})
+                    timerIndicatorView.setupTimerAnimation(true, {(didFinish) in})
                 }
                 delegate?.handleUserTextChange(self)
             case .EnteredText:

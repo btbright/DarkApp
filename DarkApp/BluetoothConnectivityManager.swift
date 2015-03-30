@@ -27,6 +27,7 @@ class UserConnectivityManager : MultipeerManagerDelegate
     
     init(initedMultipeerManager: MultipeerManager){
         multipeerManager = initedMultipeerManager
+        multipeerManager?.delegate = self
     }
     
     func lostPeer(peerID: MCPeerID) {
@@ -40,11 +41,11 @@ class UserConnectivityManager : MultipeerManagerDelegate
     }
     
     func invitationWasReceived(fromPeer: String) {
-        //
+        var test = "test"
     }
     
     func connectedWithPeer(peerID: MCPeerID) {
-        //
+        var test = "tset"
     }
     
     func foundPeer(peerID : MCPeerID) {

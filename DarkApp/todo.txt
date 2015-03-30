@@ -30,3 +30,5 @@ AvailableUserController
 listen for available users / update view model
   - refactor to abstraction so chat user controller can use it, too
 
+next:
+- check if chat example apps connect to user before initing chat

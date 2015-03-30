@@ -40,9 +40,11 @@ class MultipeerManager: NSObject, MCSessionDelegate, MCNearbyServiceBrowserDeleg
         
         browser = MCNearbyServiceBrowser(peer: peer, serviceType: serviceName)
         browser.delegate = self
+        browser.startBrowsingForPeers()
         
         advertiser = MCNearbyServiceAdvertiser(peer: peer, discoveryInfo: nil, serviceType: serviceName)
         advertiser.delegate = self
+        advertiser.startAdvertisingPeer()
     }
     
     
